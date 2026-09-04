@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { ArrowLeft, CheckCircle2, Copy, Loader2, QrCode, ShieldCheck } from "lucide-react";
@@ -9,7 +9,6 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Skeleton } from "@/components/ui/skeleton";
 import { createPixCheckout, getCheckoutStatus } from "@/lib/checkout.functions";
 import {
   effectivePrice,
@@ -22,6 +21,7 @@ import {
 import { landingContentQueryOptions } from "@/lib/landing";
 
 export const Route = createFileRoute("/checkout/$slug")({
+  loader: ({ context }) => context.queryClient.ensureQueryData(landingContentQueryOptions),
   head: () => ({
     meta: [
       { title: "Pagamento via PIX — NexaPlay" },
@@ -46,8 +46,8 @@ type CheckoutResult = Awaited<ReturnType<typeof createPixCheckout>>;
 function CheckoutPage() {
   const { slug } = Route.useParams();
   const navigate = useNavigate();
-  const { data, isLoading } = useQuery(landingContentQueryOptions);
-  const plan = useMemo(() => data?.plans.find((p) => p.slug === slug), [data, slug]);
+  const { data } = useSuspenseQuery(landingContentQueryOptions);
+  const plan = useMemo(() => data.plans.find((p) => p.slug === slug), [data, slug]);
 
   const [form, setForm] = useState({
     name: "",
@@ -82,15 +82,6 @@ function CheckoutPage() {
     if (paid) toast.success("Pagamento confirmado! Enviamos seu acesso pelo WhatsApp.");
   }, [paid]);
 
-  if (isLoading) {
-    return (
-      <main className="mx-auto max-w-3xl px-4 py-20">
-        <Skeleton className="h-10 w-64" />
-        <Skeleton className="mt-6 h-72 w-full" />
-      </main>
-    );
-  }
-
   if (!plan) {
     return (
       <main className="mx-auto max-w-2xl px-4 py-24 text-center">
@@ -105,7 +96,7 @@ function CheckoutPage() {
     );
   }
 
-  const wa = data?.whatsapp;
+  const wa = data.whatsapp;
 
   return (
     <main className="mx-auto w-full max-w-5xl px-4 py-10 md:py-16">
