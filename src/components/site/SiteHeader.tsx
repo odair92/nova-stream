@@ -94,7 +94,7 @@ export function SiteHeader({
           </nav>
         </div>
       ) : null}
-      <span className="hidden">{X ? "" : ""}</span>
+      
     </header>
   );
 }
