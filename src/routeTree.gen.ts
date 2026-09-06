@@ -22,6 +22,7 @@ import { Route as AuthenticatedAdminBeneficiosRouteImport } from './routes/_auth
 import { Route as AuthenticatedAdminCatalogoRouteImport } from './routes/_authenticated/admin.catalogo'
 import { Route as AuthenticatedAdminCategoriasRouteImport } from './routes/_authenticated/admin.categorias'
 import { Route as AuthenticatedAdminClientesRouteImport } from './routes/_authenticated/admin.clientes'
+import { Route as AuthenticatedAdminConfiguracoesRouteImport } from './routes/_authenticated/admin.configuracoes'
 import { Route as AuthenticatedAdminCuponsRouteImport } from './routes/_authenticated/admin.cupons'
 import { Route as AuthenticatedAdminDepoimentosRouteImport } from './routes/_authenticated/admin.depoimentos'
 import { Route as AuthenticatedAdminDispositivosRouteImport } from './routes/_authenticated/admin.dispositivos'
@@ -100,6 +101,12 @@ const AuthenticatedAdminClientesRoute =
     path: '/clientes',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
+const AuthenticatedAdminConfiguracoesRoute =
+  AuthenticatedAdminConfiguracoesRouteImport.update({
+    id: '/configuracoes',
+    path: '/configuracoes',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
 const AuthenticatedAdminCuponsRoute =
   AuthenticatedAdminCuponsRouteImport.update({
     id: '/cupons',
@@ -159,6 +166,7 @@ export interface FileRoutesByFullPath {
   '/admin/catalogo': typeof AuthenticatedAdminCatalogoRoute
   '/admin/categorias': typeof AuthenticatedAdminCategoriasRoute
   '/admin/clientes': typeof AuthenticatedAdminClientesRoute
+  '/admin/configuracoes': typeof AuthenticatedAdminConfiguracoesRoute
   '/admin/cupons': typeof AuthenticatedAdminCuponsRoute
   '/admin/depoimentos': typeof AuthenticatedAdminDepoimentosRoute
   '/admin/dispositivos': typeof AuthenticatedAdminDispositivosRoute
@@ -180,6 +188,7 @@ export interface FileRoutesByTo {
   '/admin/catalogo': typeof AuthenticatedAdminCatalogoRoute
   '/admin/categorias': typeof AuthenticatedAdminCategoriasRoute
   '/admin/clientes': typeof AuthenticatedAdminClientesRoute
+  '/admin/configuracoes': typeof AuthenticatedAdminConfiguracoesRoute
   '/admin/cupons': typeof AuthenticatedAdminCuponsRoute
   '/admin/depoimentos': typeof AuthenticatedAdminDepoimentosRoute
   '/admin/dispositivos': typeof AuthenticatedAdminDispositivosRoute
@@ -204,6 +213,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/catalogo': typeof AuthenticatedAdminCatalogoRoute
   '/_authenticated/admin/categorias': typeof AuthenticatedAdminCategoriasRoute
   '/_authenticated/admin/clientes': typeof AuthenticatedAdminClientesRoute
+  '/_authenticated/admin/configuracoes': typeof AuthenticatedAdminConfiguracoesRoute
   '/_authenticated/admin/cupons': typeof AuthenticatedAdminCuponsRoute
   '/_authenticated/admin/depoimentos': typeof AuthenticatedAdminDepoimentosRoute
   '/_authenticated/admin/dispositivos': typeof AuthenticatedAdminDispositivosRoute
@@ -228,6 +238,7 @@ export interface FileRouteTypes {
     | '/admin/catalogo'
     | '/admin/categorias'
     | '/admin/clientes'
+    | '/admin/configuracoes'
     | '/admin/cupons'
     | '/admin/depoimentos'
     | '/admin/dispositivos'
@@ -249,6 +260,7 @@ export interface FileRouteTypes {
     | '/admin/catalogo'
     | '/admin/categorias'
     | '/admin/clientes'
+    | '/admin/configuracoes'
     | '/admin/cupons'
     | '/admin/depoimentos'
     | '/admin/dispositivos'
@@ -272,6 +284,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/catalogo'
     | '/_authenticated/admin/categorias'
     | '/_authenticated/admin/clientes'
+    | '/_authenticated/admin/configuracoes'
     | '/_authenticated/admin/cupons'
     | '/_authenticated/admin/depoimentos'
     | '/_authenticated/admin/dispositivos'
@@ -386,6 +399,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminClientesRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
+    '/_authenticated/admin/configuracoes': {
+      id: '/_authenticated/admin/configuracoes'
+      path: '/configuracoes'
+      fullPath: '/admin/configuracoes'
+      preLoaderRoute: typeof AuthenticatedAdminConfiguracoesRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
     '/_authenticated/admin/cupons': {
       id: '/_authenticated/admin/cupons'
       path: '/cupons'
@@ -451,6 +471,7 @@ interface AuthenticatedAdminRouteChildren {
   AuthenticatedAdminCatalogoRoute: typeof AuthenticatedAdminCatalogoRoute
   AuthenticatedAdminCategoriasRoute: typeof AuthenticatedAdminCategoriasRoute
   AuthenticatedAdminClientesRoute: typeof AuthenticatedAdminClientesRoute
+  AuthenticatedAdminConfiguracoesRoute: typeof AuthenticatedAdminConfiguracoesRoute
   AuthenticatedAdminCuponsRoute: typeof AuthenticatedAdminCuponsRoute
   AuthenticatedAdminDepoimentosRoute: typeof AuthenticatedAdminDepoimentosRoute
   AuthenticatedAdminDispositivosRoute: typeof AuthenticatedAdminDispositivosRoute
@@ -467,6 +488,7 @@ const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
   AuthenticatedAdminCatalogoRoute: AuthenticatedAdminCatalogoRoute,
   AuthenticatedAdminCategoriasRoute: AuthenticatedAdminCategoriasRoute,
   AuthenticatedAdminClientesRoute: AuthenticatedAdminClientesRoute,
+  AuthenticatedAdminConfiguracoesRoute: AuthenticatedAdminConfiguracoesRoute,
   AuthenticatedAdminCuponsRoute: AuthenticatedAdminCuponsRoute,
   AuthenticatedAdminDepoimentosRoute: AuthenticatedAdminDepoimentosRoute,
   AuthenticatedAdminDispositivosRoute: AuthenticatedAdminDispositivosRoute,
